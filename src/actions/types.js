@@ -1,0 +1,1 @@
+export  const FB_LOGIN_SUCCESS = 'favebook_login_success';
