@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">jobs</string>
+    <string name="map_api_key">AIzaSyBRsbSVnmEYcWwIaxHNSU0ma9qBSewJgyU</string>
+    <string name="fb_app_id">299121973889102</string>
+    <string name="fb_login_protocol_scheme">fb299121973889102</string>
 </resources>

@@ -36,6 +36,11 @@ class App extends Component {
         }, {
             swipeEnabled: false,
             tabBarPosition: 'bottom',
+            navigationOptions: {
+                tabBarVisible: false
+            },
+            lazy: true,
+            animationEnabled: false
         });
 
 

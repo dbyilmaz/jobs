@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import FBSDK from 'react-native-fbsdk';
-const { LoginButton } = FBSDK;
-
+import { View, Text, AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+import FBLoginView from '../components/FBLoginView';
+import { Button } from 'react-native-elements';
+import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 class AuthScreen extends Component {
+ componentDidMount() {
+     this.props.facebookLogin();
+     this.onAuthComplete(this.props);
+ }
+
+ componentWillReceiveProps(nextProps){
+     this.onAuthComplete(nextProps);
+ }
+
+ onAuthComplete (props) {
+     if(props.token){
+         this.props.navigation.navigate('map');
+         console.log('nextprops:'+props.token);
+     }
+ }
+
     render() {
         return (
             <View>
-                <LoginButton
-                    publishPermissions={["publish_actions"]}
-                    onLoginFinished={
-                        (error, result) => {
-                            if (error) {
-                                alert("Login failed with error: " + result.error);
-                            } else if (result.isCancelled) {
-                                alert("Login was cancelled");
-                            } else {
-                                alert("Login was successful with permissions: " + result.grantedPermissions)
-                            }
-                        }
-                    }
-                    onLogoutFinished={() => alert("User logged out")}/>
+
             </View>
         );
     };
 }
+const mapStateToProps =  ( { auth } ) => {
+    return { token: auth.token }
+};
 
-export default AuthScreen;
+export default connect(mapStateToProps,  actions )(AuthScreen);
