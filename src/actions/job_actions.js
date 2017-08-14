@@ -3,32 +3,48 @@ import reverseGeoCode from 'latlng-to-zip'
 import qs from 'qs';
 
 import {
-    FETCH_JOBS
+    FETCH_JOBS,
+    LIKE_JOB,
+    CLEAR_LIKED_JOBS
 } from './types';
 
 const JOB_ROOT_URL = 'http://api.indeed.com/ads/apisearch?';
 const JOB_QUERY_PARAMS = {
-    publisher:'4201738803816157',
+    publisher: '4201738803816157',
     format: 'json',
-    v:'2',
+    v: '2',
     latlong: 1,
     radius: 10,
-    q: 'javascript'
 };
 
-const buildJobUrl= (zip) => {
-    const query = qs.stringify({ ...JOB_QUERY_PARAMS, l:zip });
+const buildJobUrl= (zip, job) => {
+    const query = qs.stringify({ ...JOB_QUERY_PARAMS, l:zip, q:job });
     return `${JOB_ROOT_URL}${query}`;
 };
 
-export const fetchJobs = (region) => async (dispatch) => {
+export const fetchJobs = (region, job, callback) => async (dispatch) => {
     try{
         let zip = await reverseGeoCode( region );
-        const url = buildJobUrl(zip);
+        const url = buildJobUrl(zip, job);
         let { data } = await axios.get(url);
-        dispatch({ type: FETCH_JOBS, payload:data })
-        console.log(data);
+        dispatch({ type: FETCH_JOBS, payload:data });
+        callback();
     }catch (e) {
-        console.log(e);
+        console.error(e);
     }
+};
+
+export const likeJob = ( job ) => {
+
+    console.log('Like: '+job);
+    return {
+        payload: job,
+        type: LIKE_JOB
+    }
+};
+
+export const clearLikedJobs = () => {
+    return {
+        type:CLEAR_LIKED_JOBS
+    };
 };

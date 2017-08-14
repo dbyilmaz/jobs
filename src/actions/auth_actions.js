@@ -26,7 +26,7 @@ const doFacebookLogin =  async dispatch  => {
              console.log("errororororo");
              return dispatch({type: FB_LOGIN_FAIL});
          } else {
-             console.log("ok");
+             AsyncStorage.setItem('fb_info',data.profile);
              let token = data.credentials.token;
              AsyncStorage.setItem('fb_token', token);
              dispatch({ type: FB_LOGIN_SUCCESS, payload: token})

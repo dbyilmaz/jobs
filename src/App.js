@@ -28,9 +28,17 @@ class App extends Component {
                         })
                     }
                 },{
-                    swipeEnabled: false,
+                    swipeEnabled: true,
                     animationEnabled: false,
                     tabBarPosition: 'bottom',
+                    tabBarOptions: {
+                        labelStyle: { fontSize:10, margin:0 },
+                        showIcon: true,
+                        iconStyle: {
+                            width: 25,
+                            height: 25,
+                        }},
+
                 })
             }
         }, {

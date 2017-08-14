@@ -17,15 +17,13 @@ class FBLoginView extends Component {
 
     render(){
         return (
-                <SocialIcon
-                    style={{ borderRadius:0}}
-                    title='Logout'
-                    button
-                    type='facebook'
-                    onPress={() => {
-                            this.context.logout()
-                    }}
-                />
+        <Button title="Logout"
+                icon={{ name: 'loop' }}
+                backgroundColor="crimson"
+                buttonStyle={{ marginTop:10 }}
+                onPress= { () => {
+                    this.context.logout()
+                } }/>
         )
     }
 }
